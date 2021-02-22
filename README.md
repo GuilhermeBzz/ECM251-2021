@@ -2,7 +2,7 @@
 Repositório criado para gerenciar os projetos e aulas de Linguagens I.
 
 # Desenvolvedor: 
-## Guilherme Bernardelli Zeigler
+- Guilherme Bernardelli Zeigler
 
 # Principais Linguagens:
 - Java
