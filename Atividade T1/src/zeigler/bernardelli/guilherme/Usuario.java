@@ -8,7 +8,7 @@ public class Usuario {
     public Usuario(String nome){
         this.nome = nome;
     }
-    
+
 
     @Override
     public String toString() {
