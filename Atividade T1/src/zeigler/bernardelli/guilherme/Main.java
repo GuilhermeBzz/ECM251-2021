@@ -26,5 +26,18 @@ public class Main {
         Usuario usuario3 = new Usuario(username);
         Conta conta3 = new Conta(3000, usuario3);
 
+        //Exibir estado inical e realizar operacoes
+
+        System.out.println(conta1.toString());
+        System.out.println(conta2.toString());
+        System.out.println(conta3.toString());
+
+        String op1 = Transacao.QRCode(conta1, usuario1, 250);
+
+        if (Transacao.Transacao(conta2,conta1,op1)){
+            System.out.println("Transação realizada com sucesso!");
+        }
+        else
+            System.out.println("Desculpe, não foi possível realizar a transação. Verifique as informações inseridas, seu saldo e tente novamente.");
     }
 }
