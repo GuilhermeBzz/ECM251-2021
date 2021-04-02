@@ -11,6 +11,12 @@ public class Conta {
         this.Usuario = Usuario;
     }
 
+    public int getidConta () {
+        return this.idConta;
+    }
+
+
+
     @Override
     public String toString() {
         return "Conta{" +
