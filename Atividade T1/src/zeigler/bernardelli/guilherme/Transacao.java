@@ -1,5 +1,8 @@
 package zeigler.bernardelli.guilherme;
 
+//Carolina de Carvalho Gutierrez  18.00576-4
+//Guilherme Bernardelli Zeigler   19.02453-3
+
 import java.util.Random;
 
 public class Transacao {
