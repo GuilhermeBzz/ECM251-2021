@@ -29,7 +29,4 @@ public class Transacao {
         else
             return false;
     }
-
-
-
 }

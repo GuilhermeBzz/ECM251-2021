@@ -3,11 +3,13 @@ package zeigler.bernardelli.guilherme;
 public class Conta {
     private Usuario Usuario;
     private int idConta;
+    private static int idBase = 0;
     private double saldo;
 
-    public Conta(double saldoInicial, int idnovo, Usuario Usuario){
+    public Conta(double saldoInicial, Usuario Usuario){
+        idBase++;
         this.saldo = saldoInicial;
-        this.idConta = idnovo;
+        this.idConta = idBase;
         this.Usuario = Usuario;
     }
 
