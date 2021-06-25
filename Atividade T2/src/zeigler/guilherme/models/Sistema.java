@@ -4,10 +4,13 @@ import zeigler.guilherme.enums.HorarioDoSistema;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Sistema {
     List<Membro> membros = new ArrayList<>();
@@ -102,7 +105,10 @@ public class Sistema {
      *          para adicionar o novo membro ao ArrayList ele verifica qual a categoria deste novo membro e entao
      *          utiliza o construtor da devida Classe.
      * 4 - Remover membro
+     *          o usuario informa o Nome de Usuario do membro que deseja remover
+     *          o sistema remove este membro do ArrayList e remove ele do arquivo CSV
      * 5 - Listar membros
+     *          faz com que todos os membros cadastrados no ArrayList membros utilizem o metodo Apresentacao()
      * 6 - Postar mensagem
      */
     public void run(){
@@ -212,7 +218,30 @@ public class Sistema {
                     break;
 
                 case 4:
+                    Scanner scanneruser = new Scanner(System.in);
+                    String user;
+                    System.out.println("Informe o usuario do membro que deseja remover: ");
+                    user = scanneruser.nextLine();
+                    membros.removeIf(membro -> membro.usuario.equals(user));
+
+                    try {
+
+                        File file = new File("arquivo_super_Secreto_nao_abrir.csv");
+                        List<String> out = Files.lines(file.toPath()).filter(line ->!line.contains(user + ";"))
+                                .collect(Collectors.toList());
+                        Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+
+
+                    }catch (Exception exception){
+                        System.out.println("Nao foi possivel remover este usuario.");
+                    }
+
+
+                    break;
                 case 5:
+                    membros.forEach(Membro::Apresentacao);
+
+                    break;
                 case 6:
                 case 0:
                     System.out.println("Muito obrigado por usar o sistema MAsK_S0c13ty");
