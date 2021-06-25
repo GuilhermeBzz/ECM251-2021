@@ -3,8 +3,10 @@ package zeigler.guilherme.models;
 import zeigler.guilherme.enums.HorarioDoSistema;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Sistema {
@@ -94,6 +96,11 @@ public class Sistema {
      * 2 - Altera o horario Atual do sistema
      *          altera o atributo HoraAtual de Regular para Extra ou de Extra para Regular
      * 3 - Registrar Novo membro
+     *          o usuario informa um nome, um email e a categoria deste novo membro. o id numerico eh gerado
+     *          aleatoriamente entre 000001 e 999999.
+     *          adiciona novo membro no ArrayList de membros, adiciona este mesmo membro no CSV
+     *          para adicionar o novo membro ao ArrayList ele verifica qual a categoria deste novo membro e entao
+     *          utiliza o construtor da devida Classe.
      * 4 - Remover membro
      * 5 - Listar membros
      * 6 - Postar mensagem
@@ -129,6 +136,81 @@ public class Sistema {
                     break;
 
                 case 3:
+                    int op2;
+                    String tempnome;
+                    String tempemail;
+                    int tempid;
+                    Random sorteador = new Random();
+                    tempid = (sorteador.nextInt(999998) + 1);
+                    scanner.nextLine();
+
+                    System.out.println("Id gerado para o novo membro: " + tempid);
+                    System.out.println("Informe o Nome de usuario que deseja cadastrar: ");
+                    tempnome = scanner.nextLine();
+                    System.out.println("Informe o Email que deseja cadastrar: ");
+                    tempemail = scanner.nextLine();
+                    System.out.println("Informe a Categoria do novo membro:\n(1) - BigBrother\n(2) - HeavyLifter\n" +
+                            "(3) - MobileMember\n(4) - ScriptGuy\nCategoria desejada: ");
+                    op2 = scanner.nextInt();
+
+                    while(op2 != 1 && op2 != 2 && op2 != 3 && op2 != 4){
+                        System.out.println("Categoria invalida! Tente novamente: ");
+                        op2 = scanner.nextInt();
+                    }
+
+
+                    switch(op2){
+                        case 1:
+                            try{
+                                add2file(new BigBrother(tempnome, tempemail, tempid));
+                                membros.add(new BigBrother(tempnome, tempemail, tempid));
+                                System.out.println("Membro Registrado com sucesso!");
+                            }catch(Exception exception){
+                                System.out.println("Nao foi possivel registrar o usuario");
+                            }
+
+                            break;
+
+                        case 2:
+                            try{
+                                add2file(new HeavyLifter(tempnome, tempemail, tempid));
+                                membros.add(new HeavyLifter(tempnome, tempemail, tempid));
+                                System.out.println("Membro Registrado com sucesso!");
+                            }catch(Exception exception){
+                                System.out.println("Nao foi possivel registrar o usuario");
+                            }
+
+                            break;
+
+                        case 3:
+                            try{
+                                add2file(new MobileMember(tempnome, tempemail, tempid));
+                                membros.add(new MobileMember(tempnome, tempemail, tempid));
+                                System.out.println("Membro Registrado com sucesso!");
+                            }catch(Exception exception){
+                                System.out.println("Nao foi possivel registrar o usuario");
+                            }
+
+                            break;
+
+                        case 4:
+                            try{
+                                add2file(new MobileMember(tempnome, tempemail, tempid));
+                                membros.add(new BigBrother(tempnome, tempemail, tempid));
+                                System.out.println("Membro Registrado com sucesso!");
+                            }catch(Exception exception){
+                                System.out.println("Nao foi possivel registrar o usuario");
+                            }
+
+                            break;
+
+                        default:
+                            System.out.println("Ocorreu um erro ao tentar registrar um novo membro!");
+                            break;
+                    }
+
+                    break;
+
                 case 4:
                 case 5:
                 case 6:
@@ -142,6 +224,36 @@ public class Sistema {
 
             System.out.println("\n");
         }
+
+    }
+
+    /**
+     * Metodo utilizado para adicionar um novo membro ao CSV
+     * usuario;email;id;categoria
+     * Caso o arquivo esteja vazio ele preenche a primeira linha com um novo membro
+     * Caso ja tenha algum membro cadastrado ele cria uma nova linha para cadastrar um membro
+     * @param novomembro Membro que sera adicionado ao arquivo
+     * @throws Exception
+     */
+    void add2file(Membro novomembro) throws Exception{
+        int vazio;
+
+        File file = new File("arquivo_super_Secreto_nao_abrir.csv");
+        if (file.length() == 0){
+            vazio = 1;
+        }
+        else{
+            vazio = 0;
+        }
+
+        FileWriter fileWriter = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
+
+        if (vazio == 0) {
+            fileWriter.append("\n" + novomembro.usuario + ";" + novomembro.email + ";" + novomembro.id + ";" + novomembro.categoria);
+        } else{
+            fileWriter.append(novomembro.usuario + ";" + novomembro.email + ";" + novomembro.id + ";" + novomembro.categoria);
+        }
+        fileWriter.close();
 
     }
 
