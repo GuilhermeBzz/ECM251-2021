@@ -110,6 +110,13 @@ public class Sistema {
      * 5 - Listar membros
      *          faz com que todos os membros cadastrados no ArrayList membros utilizem o metodo Apresentacao()
      * 6 - Postar mensagem
+     *          o usuario pode escolher entre duas opcoes
+     *              todos os usuarios postarem uma mensagem
+     *                  faz com que todos os membros utilizem o metodo PostarMensagem enviando a hora atual do sistema
+     *                  como parametro
+     *              escolher um usuario para postar a mensagem
+     *                  o usuario digita um usuario e o sistema faz com que este usuario utilize o metodo PostarMensagem
+     *                  enviando a hora atual do sistema como parametro
      */
     public void run(){
         System.out.println("\n=============================================\n" +
@@ -238,11 +245,44 @@ public class Sistema {
 
 
                     break;
+                    
                 case 5:
                     membros.forEach(Membro::Apresentacao);
 
                     break;
                 case 6:
+                    scanner.nextLine();
+                    int escolha;
+                    System.out.println("(0) - Todos postarem uma mensagem\n(1) - Escolher membro para postar\nDigite" +
+                            " a opcao escolhida: ");
+                    escolha=scanner.nextInt();
+
+                    while(escolha!= 1 && escolha!= 0){
+                        System.out.println("Opcao invalida! tente novamente: ");
+                        escolha = scanner.nextInt();
+                    }
+
+                    if(escolha == 1) {
+                        String postador;
+                        System.out.println("Informe o nome do usuario que deseja postar uma mensagem: ");
+                        scanner.nextLine();
+                        postador = scanner.nextLine();
+
+                        membros.forEach(membro -> {
+                            if (membro.usuario.equals(postador)) {
+                                membro.PostarMensagem(this.HoraAtual);
+                            }
+
+                        });
+                    } else{
+                        membros.forEach(membro-> {
+                            System.out.println(membro.usuario + ":");
+                            membro.PostarMensagem(this.HoraAtual);
+                        });
+                    }
+
+                    break;
+
                 case 0:
                     System.out.println("Muito obrigado por usar o sistema MAsK_S0c13ty");
                     break;
