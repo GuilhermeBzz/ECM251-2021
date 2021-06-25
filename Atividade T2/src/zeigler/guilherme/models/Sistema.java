@@ -4,6 +4,7 @@ import zeigler.guilherme.enums.HorarioDoSistema;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class Sistema {
     public Sistema() {
         System.out.println("Inicializando o sistema");
         HoraAtual = HorarioDoSistema.Regular;
+
+        removerVazias("arquivo_super_Secreto_nao_abrir.csv");
 
         File file = new File("arquivo_super_Secreto_nao_abrir.csv");
         String categorianew;
@@ -238,6 +241,8 @@ public class Sistema {
                                 .collect(Collectors.toList());
                         Files.write(file.toPath(), out, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
 
+                        System.out.println("Membro removido com sucesso!");
+
 
                     }catch (Exception exception){
                         System.out.println("Nao foi possivel remover este usuario.");
@@ -247,7 +252,9 @@ public class Sistema {
                     break;
 
                 case 5:
+                    System.out.println("Membros Cadastrados:");
                     membros.forEach(Membro::Apresentacao);
+                    System.out.println("====================");
 
                     break;
                 case 6:
@@ -324,6 +331,39 @@ public class Sistema {
         }
         fileWriter.close();
 
+    }
+
+    void removerVazias (String name){
+
+        Scanner file;
+        PrintWriter writer;
+
+        try{
+
+            file = new Scanner(new File(name));
+            writer = new PrintWriter(name + ".tmp");
+
+            while (file.hasNext()) {
+                String line = file.nextLine();
+                if (!line.isEmpty()) {
+                    writer.write(line);
+                    writer.write("\n");
+                }
+            }
+
+            file.close();
+            writer.close();
+
+            File fileog = new File(name);
+            File filenew = new File(name + ".tmp");
+
+            fileog.delete();
+            filenew.renameTo(fileog);
+
+
+        }catch(Exception exception){
+            System.out.println("Nao foi possivel remover as linhas em branco do arquivo informado");
+        }
     }
 
 
