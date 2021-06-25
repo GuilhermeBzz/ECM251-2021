@@ -208,8 +208,8 @@ public class Sistema {
 
                         case 4:
                             try{
-                                add2file(new MobileMember(tempnome, tempemail, tempid));
-                                membros.add(new BigBrother(tempnome, tempemail, tempid));
+                                add2file(new ScriptGuy(tempnome, tempemail, tempid));
+                                membros.add(new ScriptGuy(tempnome, tempemail, tempid));
                                 System.out.println("Membro Registrado com sucesso!");
                             }catch(Exception exception){
                                 System.out.println("Nao foi possivel registrar o usuario");
