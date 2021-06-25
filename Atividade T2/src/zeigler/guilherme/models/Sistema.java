@@ -90,7 +90,9 @@ public class Sistema {
      * O usuario escolhe uma opcao de 0-6
      * 0 - Sair
      * 1 - Consulta o horario Atual do sistema
+     *          retorna o atributo HoraAtual
      * 2 - Altera o horario Atual do sistema
+     *          altera o atributo HoraAtual de Regular para Extra ou de Extra para Regular
      * 3 - Registrar Novo membro
      * 4 - Remover membro
      * 5 - Listar membros
@@ -113,7 +115,19 @@ public class Sistema {
 
             switch (op) {
                 case 1:
+                    System.out.println("Voce esta trabalhando em um Horario " + this.HoraAtual);
+                    break;
+
                 case 2:
+                    if (this.HoraAtual == HorarioDoSistema.Regular){
+                        this.HoraAtual = HorarioDoSistema.Extra;
+                        System.out.println("Horario alterado de Regular para Extra");
+                    } else{
+                        this.HoraAtual = HorarioDoSistema.Regular;
+                        System.out.println("Horario alterado de Extra para Regular");
+                    }
+                    break;
+
                 case 3:
                 case 4:
                 case 5:
