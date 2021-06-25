@@ -75,7 +75,6 @@ public class Sistema {
                 }
 
 
-
             }
 
         }
@@ -84,6 +83,53 @@ public class Sistema {
         }
         System.out.println("Sistema inicializado com Sucesso!");
 
+    }
+
+    /**
+     * Metodo que deixa o Sistema rodando.
+     * O usuario escolhe uma opcao de 0-6
+     * 0 - Sair
+     * 1 - Consulta o horario Atual do sistema
+     * 2 - Altera o horario Atual do sistema
+     * 3 - Registrar Novo membro
+     * 4 - Remover membro
+     * 5 - Listar membros
+     * 6 - Postar mensagem
+     */
+    public void run(){
+        System.out.println("\n=============================================\n" +
+                "-=-=- Bem vindo ao Sistema MAsK_S0c13ty -=-=-\n" +
+                "=============================================\n");
+        int op = 1;
+        Scanner scanner = new Scanner(System.in);
+
+        while(op!=0) {
+            System.out.println("Atividades disponiveis:\n(1) - Consultar horario atual\n(2) - Alterar horario de servico\n" +
+                    "(3) - Registrar Novo membro\n(4) - Remover membro\n(5) - Listar todos os membros\n" +
+                    "(6) - Postar mensagem\n(0) - Sair\nInforme a atividade desejada: ");
+            op = scanner.nextInt();
+            System.out.println("\n");
+
+
+            switch (op) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 0:
+                    System.out.println("Muito obrigado por usar o sistema MAsK_S0c13ty");
+                    break;
+                default:
+                    System.out.println("Atividade invalida!");
+                    break;
+            }
+
+            System.out.println("\n");
+        }
 
     }
+
+
 }
