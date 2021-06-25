@@ -245,7 +245,7 @@ public class Sistema {
 
 
                     break;
-                    
+
                 case 5:
                     membros.forEach(Membro::Apresentacao);
 
